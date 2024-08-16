@@ -6,7 +6,7 @@ from instruments import DS1000Z, DP800
 
 class TestDS1000Z(unittest.TestCase):
     def setUp(self):
-        self.instrument = DS1000Z("192.168.254.100")
+        self.instrument = DS1000Z("192.168.0.101")
         self.instrument.reset()
         self.instrument.hide_channel(1)
         self.instrument.set_probe_ratio(1, 1)
@@ -1522,6 +1522,11 @@ class TestDP800(unittest.TestCase):
 
     def test_system_version(self):
         self.instrument.get_system_version()
+ instrument.get_channel_scale() == 5e-3
+        instrument.get_timebase_scale() == 5e-3
+
+        instrument.disable_source()
+        instrument.hide_channel()
 
     def test_timer_cycles(self):
         self.instrument.set_timer_cycles(10)
