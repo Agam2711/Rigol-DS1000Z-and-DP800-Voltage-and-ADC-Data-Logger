@@ -1,0 +1,4 @@
+pyvisa
+pandas
+pyserial
+python-vxi11

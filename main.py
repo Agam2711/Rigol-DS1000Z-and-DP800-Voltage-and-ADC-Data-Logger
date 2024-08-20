@@ -18,6 +18,7 @@ step_size = 0.001  # unit is volts
 instrument = DS1000Z("192.168.0.100")
 power = DP800("192.168.0.151")
 
+#The address for DM multimeter
 instrument_address = 'USB0::0x1AB1::0x09C4::DM3R204402544::INSTR'
 
 
@@ -72,13 +73,16 @@ def read_voltage_from_channels():
 
         power.set_channel( voltage = voltage_check , current=1, channel=1)
         rm = visa.ResourceManager()
+        
+        
+        #Comment out to disable DM3058E Multimeter
         dmm = rm.open_resource(instrument_address)
         dmm_current = (dmm.query("MEAS:CURR:DC?")) 
         # Converting the dmm current into the correct format
         dmm_current = dmm_current.strip().strip('"')
         dmm_current = dmm_current.split('+',1)[-1]
 
-
+        #ADC values from nrf board
         line = ser.readline().decode('utf-8').strip()  # Read a line from the serial port
         adc_values = line.split('|') 
         adc_0 = float(adc_values[0].split(':')[1].strip())
